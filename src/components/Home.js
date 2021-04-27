@@ -5,9 +5,53 @@ import Originals from './Originals';
 import Recommends from './Recommends';
 import Viewers from './Viewers';
 import Trending from './Trending';
+import { useEffect } from 'react';
+import db from '../firebase';
+
 
 
 const Home = (props) => {
+
+
+        const dispatch = useDispatch();
+        const userName = useSelector(selectUserName);
+        let recommends = [];
+        let newDisneys = [];
+        let originals = [];
+        let trending = [];
+    
+    useEffect(()=>{
+        db.collection('movies').onSnapshot((snapshot)=>{
+            snapshot.docs.map((doc)=>{
+                switch(doc.data().type) {
+                    case 'recommended' :
+                        recommends = [...recommends, {id: doc.id, ...doc.data()}];
+                        break;
+
+                    case 'new' :
+                        newDisneys = [...newDisneys, {id: doc.id, ...doc.data()}];
+                        break;
+
+                    case 'original' :
+                        originals = [...originals, {id: doc.id, ...doc.data()}];
+                        break;
+                    case 'trending' :
+                        trending = [...trending, {id: doc.id, ...doc.data()}];
+                        break;
+                }
+            });
+
+            dispatch(
+                setMovies({
+                    recommend: recommends,
+                    newDisney: newDisneys,
+                    original: originals,
+                    trending: trending,
+                  })
+            )
+        })
+    })
+    
     return(
         <Container>
             <ImgSlider/>
