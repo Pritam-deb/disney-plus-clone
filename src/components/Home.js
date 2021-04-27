@@ -1,15 +1,12 @@
 import styled from 'styled-components';
+import ImgSlider from './ImgSlider';
 
 
 const Home = (props) => {
     return(
         <Container>
-            <h2>Hello</h2>
-            <h2>Hello</h2>
-            <h2>Hello</h2>
-            <h2>Hello</h2>
-            <h2>Hello</h2>
-            <h2>Hello</h2>
+            <ImgSlider></ImgSlider>
+            
         </Container>
     )
 };
@@ -29,7 +26,7 @@ const Container = styled.main `
         inset: 0px;
         opacity: 1;
         z-index: -1;
-        
+
     }
     
 `; 
