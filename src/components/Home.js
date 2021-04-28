@@ -7,6 +7,9 @@ import Viewers from './Viewers';
 import Trending from './Trending';
 import { useEffect } from 'react';
 import db from '../firebase';
+import { useDispatch, useSelector } from "react-redux";
+import { setMovies } from "../features/movie/movieSlice";
+import { selectUserNames} from "../features/user/userSlice";
 
 
 
@@ -14,7 +17,7 @@ const Home = (props) => {
 
 
         const dispatch = useDispatch();
-        const userName = useSelector(selectUserName);
+        const userName = useSelector(selectUserNames);
         let recommends = [];
         let newDisneys = [];
         let originals = [];
@@ -23,8 +26,9 @@ const Home = (props) => {
     useEffect(()=>{
         db.collection('movies').onSnapshot((snapshot)=>{
             snapshot.docs.map((doc)=>{
+                console.log(recommends);
                 switch(doc.data().type) {
-                    case 'recommended' :
+                    case 'recommend' :
                         recommends = [...recommends, {id: doc.id, ...doc.data()}];
                         break;
 
@@ -50,7 +54,7 @@ const Home = (props) => {
                   })
             )
         })
-    })
+    },[userName]);
     
     return(
         <Container>
