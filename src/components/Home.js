@@ -53,7 +53,7 @@ const Home = (props) => {
                     trending: trending,
                   })
             )
-        });
+        })
     },[userName]);
     
     return(
