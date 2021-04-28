@@ -52,8 +52,8 @@ const Home = (props) => {
                     original: originals,
                     trending: trending,
                   })
-            )
-        })
+            );
+        });
     },[userName]);
     
     return(
@@ -65,7 +65,7 @@ const Home = (props) => {
             <Originals/>
             <Trending/>
         </Container>
-    )
+    );
 };
 
 const Container = styled.main `
