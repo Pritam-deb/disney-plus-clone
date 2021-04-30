@@ -5,18 +5,35 @@ import db from '../firebase';
 
 
 const Detail = (props) => {
+    const {id} = useParams();
+    const [detailData, setDetailData] =useState({});
+
+    useEffect(()=>{
+        db.collection("movies").doc(id).get().then((doc) => {
+            if(doc.exists) {
+                setDetailData(doc.data());
+            } else {
+                console.log("Nothing like that in firebase.")
+            }
+        })
+        .catch((error)=>{
+            console.log("Error getting documents:", error);
+        });
+        
+    },[id]);
+
     return(
         <Container>
             <Background>
                 <img 
-                    alt=""
-                    src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/223DAE104BE1175F374C4AACAC0EB5B8B0DB9C49839AA2E10085533DDFE07A8E/scale?width=1440&aspectRatio=1.78&format=jpeg" />
+                    alt={detailData.title}
+                    src={detailData.backgroundImg} />
                 
             </Background>
             <ImageTitle>
             <img 
-                alt=""
-                src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/47A6FB38D95B3A5EF5583C9EED0B698ED2992CBA4AC7222DD3269DC92DFA03A6/scale?width=1440&aspectRatio=1.78" />
+                alt={detailData.title}
+                src={detailData.titleImg} />
             
             </ImageTitle>
             <ContentMeta>
@@ -31,7 +48,6 @@ const Detail = (props) => {
                     </Trailer>
                     <AddList>
                         <span/>
-
                         <span/>
                     </AddList>
                     <GroupWatch>
@@ -41,10 +57,10 @@ const Detail = (props) => {
                     </GroupWatch>
                 </Controls>
                 <SubTitle>
-                    Subtitle
+                    {detailData.subTitle}
                 </SubTitle>
                 <Description>
-                    Description
+                    {detailData.description}
                 </Description>
             </ContentMeta>
         </Container>
