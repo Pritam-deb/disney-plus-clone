@@ -1,4 +1,8 @@
-import styled from 'styled-components'
+import {useEffect, useState} from "react";
+import styled from 'styled-components';
+import {useParams} from "react-router-dom";
+import db from '../firebase';
+
 
 const Detail = (props) => {
     return(
@@ -21,7 +25,27 @@ const Detail = (props) => {
                         <img src="/images/play-icon-black.png" alt=""/>
                         <span>Play</span>
                     </Player>
+                    <Trailer>
+                        <img src="/images/play-icon-white.png" alt=""/>
+                        <span>Trailer</span>
+                    </Trailer>
+                    <AddList>
+                        <span/>
+
+                        <span/>
+                    </AddList>
+                    <GroupWatch>
+                        <div>
+                            <img src="/images/group-icon.png" alt=""/>
+                        </div>
+                    </GroupWatch>
                 </Controls>
+                <SubTitle>
+                    Subtitle
+                </SubTitle>
+                <Description>
+                    Description
+                </Description>
             </ContentMeta>
         </Container>
     )
